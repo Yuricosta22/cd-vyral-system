@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Literal
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, EmailStr
 
 
@@ -34,8 +36,20 @@ tasks: list[Task] = []
 
 
 @app.get("/")
-def read_root():
+def read_root(request: Request):
+    accept = request.headers.get("accept", "")
+    static_file = Path(__file__).resolve().parent.parent / "static" / "index.html"
+    if "text/html" in accept and static_file.exists():
+        return FileResponse(static_file)
     return {"name": "cd-vyral-system", "status": "running"}
+
+
+@app.get("/site")
+def read_site():
+    static_file = Path(__file__).resolve().parent.parent / "static" / "index.html"
+    if not static_file.exists():
+        return {"detail": "Site not found"}
+    return FileResponse(static_file)
 
 
 @app.get("/health")

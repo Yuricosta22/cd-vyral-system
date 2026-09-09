@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vyral System</title>
+    <style>
+      :root {
+        --bg: #081120;
+        --panel: #111b2e;
+        --panel-alt: #152847;
+        --primary: #7c9cff;
+        --primary-2: #8ef0d2;
+        --text: #edf3ff;
+        --muted: #9db3d9;
+        --success: #42d392;
+        --warning: #f1c75b;
+        --danger: #ff7b7b;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, Arial, sans-serif;
+        background: linear-gradient(135deg, var(--bg), #0d1a2d 35%, #101f3b);
+        color: var(--text);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 32px 20px 80px;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+      }
+
+      .brand-mark {
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-2));
+        display: grid;
+        place-items: center;
+        color: #081120;
+        font-weight: 900;
+      }
+
+      .nav {
+        display: flex;
+        gap: 18px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 28px;
+        align-items: center;
+        padding: 30px 0 24px;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.4rem, 4vw, 4rem);
+        line-height: 1.1;
+        margin: 0 0 18px;
+      }
+
+      .highlight {
+        background: linear-gradient(135deg, var(--primary), var(--primary-2));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .subtitle {
+        color: var(--muted);
+        font-size: 1.08rem;
+        line-height: 1.7;
+        margin-bottom: 28px;
+      }
+
+      .cta-row {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        border: none;
+        cursor: pointer;
+        border-radius: 12px;
+        padding: 14px 20px;
+        font-weight: 700;
+        transition: transform 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--primary-2));
+        color: #07111d;
+      }
+
+      .btn-secondary {
+        background: rgba(255,255,255,0.04);
+        color: var(--text);
+        border: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 32px;
+      }
+
+      .card {
+        background: rgba(17, 27, 46, 0.9);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 18px;
+        padding: 22px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+      }
+
+      .metric {
+        font-size: 1.7rem;
+        font-weight: 800;
+        margin: 12px 0 8px;
+      }
+
+      .muted {
+        color: var(--muted);
+        margin: 0;
+      }
+
+      .panel {
+        background: rgba(17, 27, 46, 0.75);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 22px;
+        padding: 22px;
+      }
+
+      .small-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .stat-box {
+        border-radius: 16px;
+        background: rgba(255,255,255,0.03);
+        padding: 18px;
+      }
+
+      .section-title {
+        margin: 36px 0 18px;
+        font-size: 1.5rem;
+      }
+
+      .forms {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      form {
+        display: grid;
+        gap: 12px;
+      }
+
+      input, select, button {
+        width: 100%;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(255,255,255,0.03);
+        color: var(--text);
+        padding: 12px 14px;
+        font: inherit;
+      }
+
+      button[type="submit"] {
+        background: linear-gradient(135deg, var(--primary), var(--primary-2));
+        color: #07111d;
+        border: none;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      li {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+
+      @media (max-width: 840px) {
+        .hero, .forms, .cards, .small-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark">V</div>
+          <span>VYRAL SYSTEM</span>
+        </div>
+        <nav class="nav">
+          <span>Dashboard</span>
+          <span>Leads</span>
+          <span>Tasks</span>
+          <span>API</span>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <div>
+          <h1>O CRM que ajuda sua equipe a <span class="highlight">converter mais</span>.</h1>
+          <p class="subtitle">
+            Organize leads, acompanhe tarefas, acompanhe performance e escale processos com uma operação clara,
+            rápida e profissional.
+          </p>
+          <div class="cta-row">
+            <button class="btn btn-primary" onclick="location.href='#dashboard'">Ver dashboard</button>
+            <button class="btn btn-secondary" onclick="location.href='/docs'">Abrir API</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="small-grid">
+            <div class="stat-box">
+              <div class="muted">Leads</div>
+              <div class="metric" id="lead-count">0</div>
+            </div>
+            <div class="stat-box">
+              <div class="muted">Atividades</div>
+              <div class="metric" id="task-count">0</div>
+            </div>
+            <div class="stat-box">
+              <div class="muted">Conversão</div>
+              <div class="metric" id="conversion-rate">0%</div>
+            </div>
+            <div class="stat-box">
+              <div class="muted">Status</div>
+              <div class="metric" id="status-text">OK</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="dashboard" class="cards">
+        <div class="card">
+          <div class="muted">Total de leads</div>
+          <div class="metric" id="total-leads">0</div>
+          <p class="muted">Quantos contatos entraram no pipeline.</p>
+        </div>
+        <div class="card">
+          <div class="muted">Tarefas ativas</div>
+          <div class="metric" id="active-tasks">0</div>
+          <p class="muted">Ações pendentes e em andamento.</p>
+        </div>
+        <div class="card">
+          <div class="muted">Taxa de conversão</div>
+          <div class="metric" id="taxa">0%</div>
+          <p class="muted">Indicador chave de vendas e performance.</p>
+        </div>
+      </section>
+
+      <h2 class="section-title">Cadastre e acompanhe</h2>
+      <section class="forms">
+        <div class="panel">
+          <h3>Novo lead</h3>
+          <form id="lead-form">
+            <input name="full_name" placeholder="Nome completo" required />
+            <input name="email" type="email" placeholder="E-mail" required />
+            <select name="status">
+              <option value="new">Novo</option>
+              <option value="contacted">Contactado</option>
+              <option value="qualified">Qualificado</option>
+              <option value="won">Ganho</option>
+              <option value="lost">Perdido</option>
+            </select>
+            <input name="source" placeholder="Origem" value="Instagram" />
+            <button type="submit">Salvar lead</button>
+          </form>
+        </div>
+
+        <div class="panel">
+          <h3>Nova tarefa</h3>
+          <form id="task-form">
+            <input name="title" placeholder="Título da tarefa" required />
+            <input name="assigned_to" placeholder="Responsável" required />
+            <select name="status">
+              <option value="pending">Pendente</option>
+              <option value="in_progress">Em progresso</option>
+              <option value="done">Concluída</option>
+            </select>
+            <button type="submit">Salvar tarefa</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="small-grid" style="margin-top: 28px;">
+        <div class="panel">
+          <h3>Leads recentes</h3>
+          <ul id="lead-list"></ul>
+        </div>
+        <div class="panel">
+          <h3>Tarefas do dia</h3>
+          <ul id="task-list"></ul>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const apiBase = '/';
+
+      async function loadDashboard() {
+        const res = await fetch(`${apiBase}dashboard`);
+        const data = await res.json();
+
+        document.getElementById('total-leads').textContent = data.total_leads;
+        document.getElementById('active-tasks').textContent = data.active_tasks;
+        document.getElementById('taxa').textContent = `${data.conversion_rate}%`;
+        document.getElementById('lead-count').textContent = data.total_leads;
+        document.getElementById('task-count').textContent = data.active_tasks;
+        document.getElementById('conversion-rate').textContent = `${data.conversion_rate}%`;
+        document.getElementById('status-text').textContent = data.total_leads > 0 ? 'ATIVO' : 'OK';
+      }
+
+      async function loadLeads() {
+        const res = await fetch(`${apiBase}leads`);
+        const leads = await res.json();
+        const list = document.getElementById('lead-list');
+        list.innerHTML = leads.slice(-5).reverse().map((lead) => `
+          <li>
+            <span>${lead.full_name}</span>
+            <span>${lead.status}</span>
+          </li>
+        `).join('') || '<li><span>Nenhum lead ainda.</span></li>';
+      }
+
+      async function loadTasks() {
+        const res = await fetch(`${apiBase}tasks`);
+        const tasks = await res.json();
+        const list = document.getElementById('task-list');
+        list.innerHTML = tasks.slice(-5).reverse().map((task) => `
+          <li>
+            <span>${task.title}</span>
+            <span>${task.status}</span>
+          </li>
+        `).join('') || '<li><span>Nenhuma tarefa ainda.</span></li>';
+      }
+
+      document.getElementById('lead-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const form = new FormData(event.target);
+        const payload = Object.fromEntries(form.entries());
+
+        await fetch(`${apiBase}leads`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        event.target.reset();
+        loadDashboard();
+        loadLeads();
+      });
+
+      document.getElementById('task-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const form = new FormData(event.target);
+        const payload = Object.fromEntries(form.entries());
+
+        await fetch(`${apiBase}tasks`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        event.target.reset();
+        loadDashboard();
+        loadTasks();
+      });
+
+      loadDashboard();
+      loadLeads();
+      loadTasks();
+    </script>
+  </body>
+</html>
