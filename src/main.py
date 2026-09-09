@@ -1,13 +1,3 @@
-from fastapi import FastAPI
+from src.app import app
 
-app = FastAPI(title="cd-vyral-system")
-
-
-@app.get("/")
-def read_root():
-    return {"message": "cd-vyral-system is running"}
-
-
-@app.get("/health")
-def health_check():
-    return {"status": "ok"}
+__all__ = ["app"]
